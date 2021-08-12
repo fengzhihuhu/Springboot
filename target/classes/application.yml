@@ -1,0 +1,34 @@
+server:
+ port: 8081
+
+spring:
+ datasource:
+  username: root
+  password: 123456
+  driver-class-name: com.mysql.jdbc.Driver
+  url: jdbc:mysql://localhost:3306/shiro?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+  type: com.alibaba.druid.pool.DruidDataSource
+  druid:
+   initialSize: 5
+   minIdle: 5
+   maxActive: 20
+   maxWait: 60000
+   timeBetweenEvictionRunsMillis: 60000
+   minEvictableIdleTimeMillis: 300000
+   validationQuery: SELECT 1 FROM DUAL
+   testWhileIdle: true
+   testOnBorrow: false
+   testOnReturn: false
+   poolPreparedStatements: true
+
+mybatis:
+ mapper-locations: classpath:mapper/*Mapper.xml
+ config-location: classpath:mybatis/mybatis-config.xml
+ type-aliases-package: com.sie.pojo
+logging:
+ level:
+  com.sie.mapper.UserMapper: DEBUG
+  com.sie.mapper.RoleMapper: DEBUG
+  com.sie.mapper.PermissionMapper: DEBUG
+  com.sie.mapper.UserRoleMapper: DEBUG
+  com.sie.mapper.RolePermissionMapper: DEBUG

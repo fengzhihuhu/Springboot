@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sie.mapper.RolePermissionMapper" >
+    <resultMap id="BaseResultMap" type="com.sie.pojo.RolePermissionKey" >
+        <id column="role_id" property="roleId" jdbcType="VARCHAR" />
+        <id column="permission_id" property="permissionId" jdbcType="VARCHAR" />
+    </resultMap>
+    <delete id="deleteByPrimaryKey" parameterType="com.sie.pojo.RolePermissionKey" >
+    delete from role_permission
+    where role_id = #{roleId,jdbcType=VARCHAR}
+      and permission_id = #{permissionId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.sie.pojo.RolePermissionKey" >
+    insert into role_permission (role_id, permission_id)
+    values (#{roleId,jdbcType=VARCHAR}, #{permissionId,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.sie.pojo.RolePermissionKey" >
+        insert into role_permission
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="roleId != null" >
+                role_id,
+            </if>
+            <if test="permissionId != null" >
+                permission_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="roleId != null" >
+                #{roleId,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionId != null" >
+                #{permissionId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="listAll" resultMap="BaseResultMap">
+        select
+        role_id,permission_id
+        from role_permission
+        where role_id=#{id}
+    </select>
+
+    <select id="findPermissionIds" resultType="com.sie.DTO.PermissionIds">
+         select
+         permission_id permissionId
+         from role_permission
+         where role_id=#{roleId}
+    </select>
+
+
+</mapper>
